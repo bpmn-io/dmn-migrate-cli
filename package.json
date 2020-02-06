@@ -2,6 +2,9 @@
   "name": "@bpmn-io/dmn-migrate-cli",
   "version": "0.0.0",
   "description": "Command-line interface for @bpmn-io/dmn-migrate.",
+  "publishConfig": {
+    "access": "public"
+  },
   "bin": {
     "dmn-migrate": "bin/dmn-migrate"
   },
@@ -16,7 +19,8 @@
   },
   "keywords": [
     "dmn",
-    "migration"
+    "migration",
+    "cli"
   ],
   "author": "Philipp Fromme",
   "contributors": [
