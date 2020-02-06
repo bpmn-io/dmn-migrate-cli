@@ -18,17 +18,17 @@ if (args.help) {
 
   console.log(`
   Usage
-    $ dmn-migrate -i [file|...files] -o [file|directory]
+    $ dmn-migrate -o [file|directory] [...inputs]
+
+    Inputs may be glob patterns, too. If no input is given we read from stdin.
 
   Options
-    --input,   -i     Input file(s), may be glob pattern. If no input is given
-                      we read from stdin.
     --output,  -o     Output file or directory. Output directory must end with
                       trailing file separator. If not given we pipe to stdout.
 
   Examples
-    $ dmn-migrate -i foo.dmn -o bar.dmn
-    $ dmn-migrate -i *.dmn -o migrated/
+    $ dmn-migrate -o bar.dmn foo.dmn
+    $ dmn-migrate -o migrated/ *.dmn
     $ cat foo.dmn | dmn-migrate > migrated/foo.migrated.dmn
 `);
 
@@ -44,18 +44,18 @@ const { migrateDiagram } = require('@bpmn-io/dmn-migrate');
 
 function parseTransforms(args) {
 
-  let inputs = [];
+  let inputs = args._.slice(2);
 
   const {
     input,
     output
   } = args;
 
-  if (!input) {
+  if (inputs.length === 0) {
     // read from stdin
     inputs = [ 0 ];
   } else {
-    inputs = Array.isArray(input) ? input : glob(input);
+    inputs = inputs.map(glob).flat();
   }
 
   if (!output) {
@@ -68,11 +68,6 @@ function parseTransforms(args) {
     return inputs.map(input => [ input, output ]);
   }
 
-}
-
-function exit(message, code = 0, printError = 0) {
-  console[printError ? 'error' : 'log'](message);
-  process.exit(code);
 }
 
 async function run() {
@@ -95,7 +90,7 @@ async function run() {
     }
 
     if (input === 0 && !data) {
-      console.error('Error: Missing --input');
+      console.error('Error: Missing input(s)');
       return process.exit(1);
     }
 

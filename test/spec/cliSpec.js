@@ -32,7 +32,6 @@ describe('cli', function() {
 
     // when
     const result = exec(binPath, [
-      '-i',
       'test/fixtures/diagram.dmn',
       '-o',
       path.join(tmpdir, 'migrated.dmn')
@@ -49,7 +48,6 @@ describe('cli', function() {
 
     // when
     const result = exec(binPath, [
-      '-i',
       'test/fixtures/*.dmn',
       '-o',
       tmpdir
@@ -82,7 +80,7 @@ describe('cli', function() {
     expect(error).to.exist;
     expect(error.exitCode).to.eql(1);
     expect(error.stdout).to.eql('');
-    expect(error.stderr).to.eql('Error: Missing --input');
+    expect(error.stderr).to.eql('Error: Missing input(s)');
   });
 
 
@@ -115,7 +113,6 @@ describe('cli', function() {
 
       // when
       const result = exec(binPath, [
-        '-i',
         INPUT_PATH,
         '-o',
         OUTPUT_PATH
