@@ -1,0 +1,123 @@
+#!/usr/bin/env node
+
+const args = require('mri')(process.argv, {
+  alias: {
+    h: 'help',
+    i: 'input',
+    o: 'output'
+  }
+});
+
+if (args.help) {
+
+  console.log(`Usage: dmn-migrate -i [file|...files] -o [file|directory]
+
+    Options:
+    --input,   -i     Input file(s), if not given read from stdin
+    --output,  -o     Output file or directory , if not given we pipe to stdout
+
+    --help              Show this help
+    --version           Show cli version
+
+    Examples:
+    $ dmn-migrate -i foo.dmn -o bar.dmn
+    $ dmn-migrate -i *.dmn -o migrated
+    $ cat foo.dmn | dmn-migrate > migrated/foo.migrated.dmn
+`);
+
+  process.exit(0);
+}
+
+const fs = require('fs');
+const path = require('path');
+
+const glob = require('fast-glob').sync;
+
+const { migrateDiagram } = require('@bpmn-io/dmn-migrate');
+
+function parseTransforms(args) {
+
+  let inputs = [];
+
+  const {
+    input,
+    output
+  } = args;
+
+  if (!input) {
+    // read from stdin
+    inputs = [ 0 ];
+  } else {
+    inputs = Array.isArray(input) ? input : glob(input);
+  }
+
+  if (!output) {
+    return inputs.map(input => [ input, null ]);
+  }
+
+  if (output.endsWith(path.sep) || output.endsWith('/')) {
+    return inputs.map(input => [ input, path.join(output, input) ]);
+  } else {
+    return inputs.map(input => [ input, output ]);
+  }
+
+}
+
+function exit(message, code = 0, printError = 0) {
+  console[printError ? 'error' : 'log'](message);
+  process.exit(code);
+}
+
+async function run() {
+
+  let errors = 0;
+
+  const transforms = parseTransforms(args);
+
+  for (const [ input, output ] of transforms) {
+
+    let data;
+
+    try {
+      data = fs.readFileSync(input, 'utf8');
+    } catch (err) {
+      console.error(`Failed to read ${input}: ${err.message}`);
+      errors++;
+
+      continue;
+    }
+
+    if (input === 0 && !data) {
+      console.error('Error: Missing --input');
+      return process.exit(1);
+    }
+
+    try {
+      const transformedData = await migrateDiagram(data);
+
+      if (output) {
+        fs.mkdirSync(path.dirname(output), { recursive: true });
+
+        fs.writeFileSync(output, data, 'utf8');
+      } else {
+        console.log(transformedData);
+      }
+    } catch (err) {
+      console.error(`Failed to migrate ${input}: ${err.message}`);
+      errors++;
+    }
+  }
+
+  if (args.output) {
+    console.log('Done.');
+  }
+
+  return process.exit(errors && 1 || 0);
+}
+
+
+run().catch(error => {
+  console.error(error);
+
+  process.exit(1);
+});
