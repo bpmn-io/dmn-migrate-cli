@@ -40,7 +40,7 @@ describe('cli', function() {
 
     // then
     expect(result.exitCode).to.eql(0);
-    expect(result.stdout).to.eql('Done.');
+    expect(result.stdout).to.include('Done.');
     expect(result.stderr).to.eql('');
   });
 
@@ -57,7 +57,7 @@ describe('cli', function() {
 
     // then
     expect(result.exitCode).to.eql(0);
-    expect(result.stdout).to.eql('Done.');
+    expect(result.stdout).to.include('Done.');
     expect(result.stderr).to.eql('');
 
     const migrated = glob('**/*.dmn', { cwd: tmpdir });
@@ -123,7 +123,7 @@ describe('cli', function() {
 
       // then
       expect(result.exitCode).to.eql(0);
-      expect(result.stdout).to.eql('Done.');
+      expect(result.stdout).to.include('Done.');
       expect(result.stderr).to.eql('');
 
       const output = fs.readFileSync(OUTPUT_PATH, 'utf8');
