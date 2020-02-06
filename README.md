@@ -8,15 +8,19 @@ Migrate DMN diagrams to the latest DMN standard version, via your command line.
 ## Usage
 
 ```bash
-dmn-migrate -i dmn11.dmn -o dmn13.dmn
+Usage
+  $ dmn-migrate -i [file|...files] -o [file|directory]
 
-# or
+Options
+  --input,   -i     Input file(s), may be glob pattern. If no input is given
+                    we read from stdin.
+  --output,  -o     Output file or directory. Output directory must end with
+                    trailing file separator. If not given we pipe to stdout.
 
-dmn-migrate -i *.dmn -o migrated/
-
-# or
-
-cat diagram.dmn | dmn-migrate > migrated.dmn
+Examples
+  $ dmn-migrate -i foo.dmn -o bar.dmn
+  $ dmn-migrate -i *.dmn -o migrated/
+  $ cat foo.dmn | dmn-migrate > migrated/foo.migrated.dmn
 ```
 
 
