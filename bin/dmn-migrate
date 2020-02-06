@@ -8,6 +8,12 @@ const args = require('mri')(process.argv, {
   }
 });
 
+if (args.version) {
+  console.log(require('../package').version);
+
+  process.exit(0);
+}
+
 if (args.help) {
 
   console.log(`
