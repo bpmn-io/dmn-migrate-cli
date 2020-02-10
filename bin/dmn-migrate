@@ -20,11 +20,13 @@ if (args.help) {
   Usage
     $ dmn-migrate -o [file|directory] [...inputs]
 
-    Inputs may be glob patterns, too. If no input is given we read from stdin.
+    Inputs may be glob patterns, too.
+    If no input is given we read from stdin.
 
   Options
-    --output,  -o     Output file or directory. Output directory must end with
-                      trailing file separator. If not given we pipe to stdout.
+    --output,  -o   Output file or directory. Output directory must
+                    end with file separator. If not given we pipe to
+                    stdout.
 
   Examples
     $ dmn-migrate -o bar.dmn foo.dmn
