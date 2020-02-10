@@ -12,6 +12,7 @@ const binPath = require('../../package.json').bin['dmn-migrate'];
 
 let tmpdir;
 
+
 describe('cli', function() {
 
   this.timeout(10000);
@@ -30,17 +31,23 @@ describe('cli', function() {
 
   it('should migrate diagram', function() {
 
+    const migratedPath = path.join(tmpdir, 'migrated.dmn');
+
     // when
     const result = exec(binPath, [
-      'test/fixtures/diagram.dmn',
+      'test/fixtures/diagram-1-1.dmn',
       '-o',
-      path.join(tmpdir, 'migrated.dmn')
+      migratedPath
     ]);
 
     // then
     expect(result.exitCode).to.eql(0);
     expect(result.stdout).to.include('Done.');
     expect(result.stderr).to.eql('');
+
+    expect(
+      readFile(migratedPath)
+    ).to.contain('dmndi:DMNDI');
   });
 
 
@@ -60,7 +67,11 @@ describe('cli', function() {
 
     const migrated = glob('**/*.dmn', { cwd: tmpdir });
 
-    expect(migrated).to.have.length(4);
+    expect(migrated).to.have.length(2);
+
+    expect(
+      readFile(path.join(tmpdir, 'test/fixtures/diagram-1-1.dmn'))
+    ).to.contain('dmndi:DMNDI');
   });
 
 
@@ -109,8 +120,6 @@ describe('cli', function() {
       const INPUT_PATH = path.join(__dirname, '../fixtures/diagram-1-3.dmn');
       const OUTPUT_PATH = path.join(tmpdir, 'tmp.dmn');
 
-      const input = fs.readFileSync(INPUT_PATH, 'utf8');
-
       // when
       const result = exec(binPath, [
         INPUT_PATH,
@@ -123,10 +132,20 @@ describe('cli', function() {
       expect(result.stdout).to.include('Done.');
       expect(result.stderr).to.eql('');
 
-      const output = fs.readFileSync(OUTPUT_PATH, 'utf8');
-      expect(output).to.eql(input);
+      expect(
+        readFile(OUTPUT_PATH)
+      ).to.eql(
+        readFile(INPUT_PATH)
+      );
     });
 
   });
 
 });
+
+
+// helpers ///////////
+
+function readFile(path) {
+  return fs.readFileSync(path, 'utf8');
+}
