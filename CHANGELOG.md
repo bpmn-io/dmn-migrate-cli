@@ -6,6 +6,10 @@ All notable changes to [dmn-migrate-cli](https://github.com/bpmn-io/dmn-migrate-
 
 ___Note:__ Yet to be released changes appear here._
 
+## 0.2.1
+
+* `FIX`: correct migration not working
+
 ## 0.2.0
 
 * `CHORE`: rework CLI to make expansion friendly
