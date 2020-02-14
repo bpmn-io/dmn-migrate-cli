@@ -141,6 +141,35 @@ describe('cli', function() {
 
   });
 
+
+  describe('error handling', function() {
+
+    it('should pipe through non-DMN file', function() {
+
+      const binaryPath = 'test/fixtures/binary.png';
+      const migratedPath = path.join(tmpdir, 'binary.png');
+
+      // when
+      const result = exec(binPath, [
+        binaryPath,
+        '-o',
+        migratedPath
+      ]);
+
+      // then
+      expect(result.exitCode).to.eql(0);
+      expect(result.stdout).to.include('Done.');
+      expect(result.stderr).to.eql('');
+
+      expect(
+        readFile(migratedPath)
+      ).to.eql(
+        readFile(binaryPath)
+      );
+    });
+
+  });
+
 });
 
 
