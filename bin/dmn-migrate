@@ -1,5 +1,15 @@
 #!/usr/bin/env node
 
+const fs = require('fs');
+const path = require('path');
+
+const glob = require('fast-glob').sync;
+
+const {
+  migrateDiagram,
+  TARGET_DMN_VERSION
+} = require('@bpmn-io/dmn-migrate');
+
 const args = require('mri')(process.argv, {
   alias: {
     h: 'help',
@@ -17,6 +27,8 @@ if (args.version) {
 if (args.help) {
 
   console.log(`
+  Migrate your DMN diagrams to DMN ${TARGET_DMN_VERSION}.
+
   Usage
     $ dmn-migrate -o [file|directory] [...inputs]
 
@@ -37,12 +49,6 @@ if (args.help) {
   process.exit(0);
 }
 
-const fs = require('fs');
-const path = require('path');
-
-const glob = require('fast-glob').sync;
-
-const { migrateDiagram } = require('@bpmn-io/dmn-migrate');
 
 function parseTransforms(args) {
 

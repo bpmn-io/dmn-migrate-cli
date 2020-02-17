@@ -8,6 +8,8 @@ Migrate DMN diagrams to the latest DMN standard version, via your command line.
 ## Usage
 
 ```bash
+  Migrate your DMN diagrams to DMN 1.3.
+
   Usage
     $ dmn-migrate -o [file|directory] [...inputs]
 
