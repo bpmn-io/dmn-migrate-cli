@@ -5,6 +5,21 @@
 Migrate DMN diagrams to the latest DMN standard version, via your command line.
 
 
+## Installation
+
+Install the command line globally:
+
+```sh
+npm install -g @bpmn-io/dmn-migrate-cli
+```
+
+Altenatively, run the utility directly via [`npx`](https://www.npmjs.com/package/npx):
+
+```sh
+npx @bpmn-io/dmn-migrate-cli -o migrated/ '**/*.dmn'
+```
+
+
 ## Usage
 
 ```bash
