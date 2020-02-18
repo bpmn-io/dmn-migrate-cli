@@ -6,6 +6,10 @@ All notable changes to [dmn-migrate-cli](https://github.com/bpmn-io/dmn-migrate-
 
 ___Note:__ Yet to be released changes appear here._
 
+## 0.3.2
+
+* `DOCS`: add installation documentation
+
 ## 0.3.1
 
 * `CHORE`: output target DMN version on `--help`
