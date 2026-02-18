@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 
-const exec = require('execa').sync;
+const exec = require('execa').execaSync;
 
 const glob = require('fast-glob').sync;
 
