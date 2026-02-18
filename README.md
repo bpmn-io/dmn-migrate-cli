@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/bpmn-io/dmn-migrate-cli/actions/workflows/CI.yml/badge.svg)](https://github.com/bpmn-io/dmn-migrate-cli/actions/workflows/CI.yml)
 
-Migrate DMN diagrams to the latest DMN standard version, via your command line.
+[Migrate DMN diagrams](https://github.com/bpmn-io/dmn-migrate) to the latest DMN standard version, via your command line.
 
 
 ## Installation
