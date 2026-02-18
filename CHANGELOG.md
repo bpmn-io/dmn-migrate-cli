@@ -6,6 +6,12 @@ All notable changes to [dmn-migrate-cli](https://github.com/bpmn-io/dmn-migrate-
 
 ___Note:__ Yet to be released changes appear here._
 
+## 0.4.0
+
+* `DEPS`: update to `@bpmn-io/dmn-migrate@0.7.1`
+* `DEPS`: update to `fast-glob@3.3.3`
+* `DEPS`: update to `mri@1.2.0`
+
 ## 0.3.2
 
 * `DOCS`: add installation documentation
