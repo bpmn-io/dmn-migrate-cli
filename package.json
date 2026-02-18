@@ -31,7 +31,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@bpmn-io/dmn-migrate": "^0.4.1",
+    "@bpmn-io/dmn-migrate": "^0.7.1",
     "fast-glob": "^3.3.3",
     "mri": "^1.2.0"
   },
