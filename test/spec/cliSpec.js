@@ -23,7 +23,7 @@ describe('cli', function() {
 
   afterEach(function() {
     if (tmpdir) {
-      fs.rmdirSync(tmpdir, { recursive: true });
+      fs.rmSync(tmpdir, { recursive: true });
     }
 
     tmpdir = null;
