@@ -29,6 +29,9 @@
       "url": "https://github.com/bpmn-io"
     }
   ],
+  "files": [
+    "bin"
+  ],
   "license": "MIT",
   "dependencies": {
     "@bpmn-io/dmn-migrate": "^0.7.1",
