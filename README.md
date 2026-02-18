@@ -1,6 +1,6 @@
 # dmn-migrate-cli
 
-[![Build Status](https://travis-ci.com/bpmn-io/dmn-migrate-cli.svg?branch=master)](https://travis-ci.com/bpmn-io/dmn-migrate-cli)
+[![CI](https://github.com/bpmn-io/dmn-migrate-cli/actions/workflows/CI.yml/badge.svg)](https://github.com/bpmn-io/dmn-migrate-cli/actions/workflows/CI.yml)
 
 Migrate DMN diagrams to the latest DMN standard version, via your command line.
 
